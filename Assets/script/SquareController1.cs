@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,8 +8,9 @@ public class SquareController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float timeRemaining = 60;
-    public Text countdownText;
+ 
     public float moveSpeed = 5f;
+
 
     // Start is called before the first frame update
     public GameObject bulletPrefab;
@@ -19,6 +20,7 @@ public class SquareController : MonoBehaviour
     void Start()
     {
         StartCoroutine(Countdown());
+        Debug.Log("xxx");
 
     }
     IEnumerator Countdown()
@@ -27,9 +29,9 @@ public class SquareController : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             timeRemaining--;
-            countdownText.text = "Time: " + timeRemaining.ToString();
+            //countdownText.text = "Time: " + timeRemaining.ToString();
         }
-        countdownText.text = "Time's up!";
+        
     }
     // Update is called once per frame
     void Update()
@@ -51,7 +53,7 @@ public class SquareController : MonoBehaviour
             shootDirection = Vector2.down;
         }
 
-        // B?n ??n khi ng??i ch?i nh?n Space
+        // Bắn đạn khi người chơi nhấn Space
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Shoot();
@@ -66,7 +68,7 @@ public class SquareController : MonoBehaviour
 
             if (renderer != null && renderer.material.color == Color.black)
             {
-                // N?u nh�n v?t ch?m v�o v�ng m�u ?en, ng?n nh�n v?t di chuy?n
+                // Nếu nhân vật chạm vào vùng màu đen, ngăn nhân vật di chuyển
                 transform.Translate(-moveDirection * moveSpeed * Time.deltaTime);
             }
         }
@@ -80,6 +82,7 @@ public class SquareController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (collision.gameObject.tag.Equals("Circle"))
         {
 
@@ -87,9 +90,9 @@ public class SquareController : MonoBehaviour
             transform.position = fistPosition;
 
         }
-        if (collision.gameObject.name.Equals("Box"))
+        if (collision.gameObject.tag.Equals("Box"))
         {
-
+            Debug.Log("hhhh");
             LoadNextScene();
 
         }
@@ -106,11 +109,11 @@ public class SquareController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("MapEdge")) // Ki?m tra xem collider kh�c c� ph?i l� vi?n b?n ?? kh�ng
+        if (collision.CompareTag("MapEdge")) // Kiểm tra xem collider khác có phải là viền bản đồ không
         {
             Debug.Log("xxxxxx");
-            // D?ng di chuy?n c?a GameObject khi va ch?m v�o vi?n b?n ??
-            Vector2 fistPosition = new Vector2(-9, 1);
+            // Dừng di chuyển của GameObject khi va chạm vào viền bản đồ
+            Vector2 fistPosition = new Vector2(4, -4);
             transform.position = fistPosition;
         }
     }
@@ -122,7 +125,7 @@ public class SquareController : MonoBehaviour
         if (bulletRb != null)
         {
 
-            bulletRb.velocity = shootDirection * bulletSpeed;  // B?n theo h??ng "up" c?a GameObject
+            bulletRb.velocity = shootDirection * bulletSpeed;  // Bắn theo hướng "up" của GameObject
         }
     }
 }

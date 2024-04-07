@@ -6,6 +6,10 @@ TagManager:
   tags:
   - MapAdge
   - MapEdge
+  - wheel
+  - Pinwheel
+  - Circle
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -51,4 +55,7 @@ TagManager:
     locked: 0
   - name: 3
     uniqueID: 2769687779
+    locked: 0
+  - name: 4
+    uniqueID: 3163239389
     locked: 0
